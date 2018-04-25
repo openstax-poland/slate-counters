@@ -1,0 +1,23 @@
+{
+  "name": "slate-plugin-counters",
+  "version": "0.1.0",
+  "description": "CSS-like counters for Slate models.",
+  "repository": "github.com/katalysteducation/slate-plugin-counters",
+  "author": "Krzysztof Mędrzycki",
+  "license": "MIT",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "immutable": "^3.8.2",
+    "rollup": "^0.58.1",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "slate": "^0.33.4"
+  },
+  "peerDependencies": {
+    "immutable": "^3.8.2",
+    "slate": "^0.33.4"
+  }
+}
