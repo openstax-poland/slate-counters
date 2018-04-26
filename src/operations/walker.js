@@ -11,9 +11,20 @@ export default class Walker {
      */
     constructor(schema) {
         this.schema = schema
+        this.reset()
+    }
+
+    /**
+     * Re-initialise walker at a specified location in the document tree.
+     *
+     * Note that this function will discard any changes made so far.
+     *
+     * @param {Immutable~Map} counters
+     */
+    reset(counters=new Map()) {
         this.values = {}
         this.stack = []
-        this.counters = new Map()
+        this.counters = counters
     }
 
     /**
