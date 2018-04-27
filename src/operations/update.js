@@ -99,7 +99,7 @@ export function updateCounters(walker, state) {
 
     state = state.withMutations(state =>
         updateTree(walker, state)
-            .mergeIn(['counters'], counters)
+            .set('counters', counters)
     )
 
     walker.exit()
