@@ -60,12 +60,12 @@ export function recurse(counters, walker, state, path, change) {
         const prev = index === 0 ? state : state.nodes.get(index - 1)
         walker.reset(counters.values.get(prev.key))
 
-        return state.updateIn(['nodes', index],
+        state = state.updateIn(['nodes', index],
             node => change(walker, node, counters))
+    } else {
+        state = state.updateIn(['nodes', index],
+            node => recurse(counters, walker, node, rest, change))
     }
-
-    state = state.updateIn(['nodes', index],
-        node => recurse(counters, walker, node, rest, change))
 
     return updateTree(walker, state, index + 1)
 }
