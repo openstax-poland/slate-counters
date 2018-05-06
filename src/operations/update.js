@@ -42,7 +42,7 @@ export function update(counters, path, change) {
  *
  * @return {State}
  */
-function recurse(counters, walker, state, path, change) {
+export function recurse(counters, walker, state, path, change) {
     const index = path[0]
     const rest = path.slice(1)
 
