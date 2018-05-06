@@ -29,6 +29,10 @@ export default class State extends Record(DEFAULTS) {
 
         let { key, type, counters, nodes } = object
 
+        if (!key) {
+            throw new Error("key must not be null")
+        }
+
         type = type || null
 
         counters = new Map(counters)
