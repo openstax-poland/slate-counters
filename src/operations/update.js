@@ -46,6 +46,11 @@ export function recurse(counters, walker, state, path, change) {
     const index = path[0]
     const rest = path.slice(1)
 
+    if (index >= state.nodes.size) {
+        // Path does not exist.
+        return state
+    }
+
     if (path.length === 0) {
         // Should only ever happen if we're modifying document node itself.
         return change(walker, state, counters)

@@ -26,6 +26,10 @@ export function delete_(counters, path) {
         return updateTree(walker, state, position)
     })
 
+    if (removed == null) {
+        return counters
+    }
+
     return Seq(iterTree(removed))
         .reduce(
             (counters, node) => counters.deleteIn(['values', node.key]),
