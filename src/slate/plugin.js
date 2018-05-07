@@ -10,5 +10,9 @@ export default function Plugin() {
         onChange(change) {
             counters = apply(counters, change)
         },
+
+        renderEditor({ children }) {
+            return React.createElement(Context, { counters: counters.values }, children)
+        },
     }
 }
