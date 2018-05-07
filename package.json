@@ -1,8 +1,8 @@
 {
-  "name": "slate-plugin-counters",
+  "name": "slate-counters",
   "version": "0.1.0",
   "description": "CSS-like counters for Slate models.",
-  "repository": "github.com/katalysteducation/slate-plugin-counters",
+  "repository": "github.com/katalysteducation/slate-counters",
   "author": "Krzysztof Mędrzycki",
   "license": "MIT",
   "main": "dist/index.cjs.js",
