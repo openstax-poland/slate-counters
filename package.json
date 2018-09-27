@@ -1,6 +1,6 @@
 {
   "name": "slate-counters",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "CSS-like counters for Slate models.",
   "repository": "github.com/katalysteducation/slate-counters",
   "author": "Krzysztof Mędrzycki",
@@ -26,7 +26,7 @@
     "immutable": "^3.8.2",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
-    "slate": "^0.35.0"
+    "slate": ">= 0.36.0 <0.42.0"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0"

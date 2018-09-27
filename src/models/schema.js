@@ -2,6 +2,10 @@ const TYPES = [
     'enter', 'exit', 'enclose',
 ]
 
+const UNSUPPORTED_RULES = [
+    'data', 'marks', 'text', 'first', 'last', 'nodes',
+]
+
 /**
  * A „counter schema” describes how nodes in a document tree affect values
  * of counters at that point in the document.
@@ -46,16 +50,35 @@ export default class Schema {
     static derive(schema) {
         const sch = {}
 
-        for (const [type, props] of Object.entries(schema.blocks)) {
-            if (props.counters) {
-                const counters = {}
-
-                for (const [name, schema] of Object.entries(props.counters)) {
-                    counters[name] = Counter.fromJS(schema)
+        function addRule(match, counters) {
+            if (match instanceof Array) {
+                for (const m of match) {
+                    addRule(m, counters)
                 }
-
-                sch[type] = Object.freeze(counters)
+                return
             }
+
+            for (const key of Object.keys(match)) {
+                if (UNSUPPORTED_RULES.includes(key)) {
+                    throw new Error("Unsupported match rule: " + key)
+                }
+            }
+
+            if (match.object && match.object !== 'block') return
+            if (!match.type) return
+
+            const c = {}
+
+            for (const [name, schema] of Object.entries(counters))
+                c[name] = Counter.fromJS(schema)
+
+            sch[match.type] = c
+        }
+
+        for (const { match, counters } of schema.rules) {
+            if (!counters) continue
+
+            addRule(match, counters)
         }
 
         return new Schema(sch)
