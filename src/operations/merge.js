@@ -4,13 +4,13 @@ import { update, updateTree } from './update'
  * Merge a node into its previous sibling.
  *
  * @param {Counters} counters
- * @param {number[]} path
+ * @param {List<number>} path
  * @param {number} position
  *
  * @return {Counters}
  */
 export function merge(counters, path, position) {
-    const index = path[path.length - 1]
+    const index = path.last()
     let removed = null
 
     counters = update(counters, path.slice(0, -1), (walker, state, counters) => {

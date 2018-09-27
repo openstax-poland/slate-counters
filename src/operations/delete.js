@@ -6,12 +6,12 @@ import { update, updateTree } from './update'
  * Remove node from a document.
  *
  * @param {Counters} counters
- * @param {number[]} path
+ * @param {List<number>} path
  *
  * @return {Counters}
  */
 export function delete_(counters, path) {
-    const position = path[path.length - 1]
+    const position = path.last()
     let removed = null
 
     counters = update(counters, path.slice(0, -1), (walker, state, counters) => {

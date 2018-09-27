@@ -5,13 +5,13 @@ import { update, updateTree } from './update'
  * Insert a node into a document.
  *
  * @param {Counters} counters
- * @param {Array<number>} path
+ * @param {List<number>} path
  * @param {Slate~Node|State} node
  *
  * @return {Counters}
  */
 export function insert(counters, path, node) {
-    const position = path[path.length - 1]
+    const position = path.last()
 
     return update(counters, path.slice(0, -1), (walker, state, counters) => {
         // Since we removed last component from path, update() has reset walker

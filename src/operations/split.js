@@ -5,7 +5,7 @@ import { update, updateTree } from './update'
  * Split a node.
  *
  * @param {Counters} counters
- * @param {number[]} path
+ * @param {List<number>} path
  * @param {number} position
  * @param {object} props
  * @param {string} props.key
@@ -14,7 +14,7 @@ import { update, updateTree } from './update'
  * @return {Counters}
  */
 export function split(counters, path, position, props) {
-    const index = path[path.length - 1]
+    const index = path.last()
 
     return update(counters, path.slice(0, -1), (walker, state, counters) => {
         let nodes = null

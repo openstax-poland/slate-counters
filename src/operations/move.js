@@ -1,20 +1,24 @@
+import { List } from 'immutable'
+
 import { update, recurse, updateTree } from './update'
 
 /**
  * Move a node.
  *
  * @param {Counters} counters
- * @param {number[]} from
- * @param {number[]} to
+ * @param {List<number>} from
+ * @param {List<number>} to
  *
  * @return {Counters}
  */
 export function move(counters, from, to) {
-    const [common, fromPath, toPath] = stripPrefix(from, to)
+    const [common, fromPath_, toPath_] = stripPrefix(from, to)
     // Those three arrays have been cloned in stripPrefix, so we can mutate them
     // freely.
-    const fromIndex = fromPath.pop()
-    const toIndex = toPath.pop()
+    const fromIndex = fromPath_.last()
+    const fromPath = fromPath_.pop()
+    const toIndex = toPath_.last()
+    const toPath = toPath_.pop()
 
     return update(counters, common, (walker, state, counters) => {
         let moved = null
@@ -29,10 +33,10 @@ export function move(counters, from, to) {
         )
 
         const [updateAt, updateIndex] =
-            fromPath[0] === toPath[0]
+            fromPath.first() === toPath.first()
                 // Can only happen when fromPath === toPath === undefined
-                ? [[], Math.min(fromIndex, toIndex)]
-                : fromPath[0] < toPath[0]
+                ? [new List(), Math.min(fromIndex, toIndex)]
+                : fromPath.first() < toPath.first()
                     ? [fromPath, fromIndex]
                     : [toPath, toIndex]
 
@@ -48,17 +52,17 @@ export function move(counters, from, to) {
 /**
  * Strip a common prefix from two paths.
  *
- * @param {number[]} a
- * @param {number[]} b
+ * @param {List<number>} a
+ * @param {List<number>} b
  *
- * @return {[number[], number[], number[]]}
+ * @return {[List<number>, List<number>, List<number>]}
  */
 function stripPrefix(a, b) {
     let inx = 0
-    const length = Math.min(a.length, b.length)
+    const length = Math.min(a.size, b.size)
 
     for (; inx < length ; ++inx) {
-        if (a[inx] !== b[inx]) {
+        if (a.get(inx) !== b.get(inx)) {
             break
         }
     }
@@ -74,16 +78,16 @@ function stripPrefix(a, b) {
  * Perform a change deep in tree.
  *
  * @param {State} state
- * @param {number[]} path
+ * @param {List<number>} path
  * @param {function(State, number): State} change
  *
  * @return {State}
  */
 function doAt(state, path, change) {
-    if (path.length === 0) {
+    if (path.size === 0) {
         return change(state)
     }
 
-    return state.updateIn(['nodes', path[0]],
+    return state.updateIn(['nodes', path.first()],
         node => doAt(node, path.slice(1), change))
 }

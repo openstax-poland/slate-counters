@@ -37,13 +37,13 @@ export function update(counters, path, change) {
  * @param {Counters} counters
  * @param {Walker} walker
  * @param {State} state
- * @param {Array<number>} path
+ * @param {List<number>} path
  * @param {UpdateFunction} change
  *
  * @return {State}
  */
 export function recurse(counters, walker, state, path, change) {
-    const index = path[0]
+    const index = path.first()
     const rest = path.slice(1)
 
     if (index >= state.nodes.size) {
@@ -51,12 +51,12 @@ export function recurse(counters, walker, state, path, change) {
         return state
     }
 
-    if (path.length === 0) {
+    if (path.size === 0) {
         // Should only ever happen if we're modifying document node itself.
         return change(walker, state, counters)
     }
 
-    if (rest.length === 0) {
+    if (rest.size === 0) {
         const prev = index === 0 ? state : state.nodes.get(index - 1)
         walker.reset(counters.values.get(prev.key))
 
