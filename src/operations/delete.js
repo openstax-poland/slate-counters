@@ -15,6 +15,11 @@ export function delete_(counters, path) {
     let removed = null
 
     counters = update(counters, path.slice(0, -1), (walker, state, counters) => {
+        if (state.nodes.size === 0) {
+            // The deleted node was an inline, and we only track blocks.
+            return state
+        }
+
         removed = state.nodes.get(position)
         state = state.deleteIn(['nodes', position])
 
