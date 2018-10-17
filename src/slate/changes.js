@@ -47,11 +47,7 @@ const APPLIERS = {
 }
 
 export function set_value(counters, op) {
-    // TODO: only changes to document or schema should cause re-derive
-    return ops.derive({
-        ...op.value.toObject(),
-        ...op.properties,
-    })
+    return ops.reset(counters, op.value)
 }
 
 export function insert_node(counters, op) {

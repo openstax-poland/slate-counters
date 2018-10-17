@@ -41,44 +41,27 @@ export default class Schema {
     }
 
     /**
-     * Derive counter schema from a Slate document schema.
+     * Derive counter schema from an array of counter definitions.
      *
-     * @param {Slate~Schema} schema
+     * @param {Array<Object>} definitions
      *
      * @return {Schema}
      */
-    static derive(schema) {
+    static derive(definitions) {
         const sch = {}
 
-        function addRule(match, counters) {
-            if (match instanceof Array) {
-                for (const m of match) {
-                    addRule(m, counters)
-                }
-                return
-            }
+        function readDefinition(definition) {
+            for (const [type, counters] of Object.entries(definition)) {
+                const c = (sch[type] = sch[type] || {})
 
-            for (const key of Object.keys(match)) {
-                if (UNSUPPORTED_RULES.includes(key)) {
-                    throw new Error("Unsupported match rule: " + key)
+                for (const [name, schema] of Object.entries(counters)) {
+                    c[name] = Counter.fromJS(schema)
                 }
             }
-
-            if (match.object && match.object !== 'block') return
-            if (!match.type) return
-
-            const c = {}
-
-            for (const [name, schema] of Object.entries(counters))
-                c[name] = Counter.fromJS(schema)
-
-            sch[match.type] = c
         }
 
-        for (const { match, counters } of schema.rules) {
-            if (!counters) continue
-
-            addRule(match, counters)
+        for (const definition of definitions) {
+            readDefinition(definition)
         }
 
         return new Schema(sch)

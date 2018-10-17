@@ -7,19 +7,44 @@ import State from '../models/state'
 import Walker from './walker'
 
 /**
- * Derive state of counters in a document from a Slate {@link Slate~Value}.
+ * Derive state of counters in a document from a Slate {@link Slate~Editor}.
  *
- * @param {Slate~Value} value
+ * @param {Slate~Editor} editor
  *
  * @return {Counters}
  */
-export function derive(value) {
-    const schema = Schema.derive(value.schema)
-    const walker = new Walker(schema)
-    const document = deriveState(walker, value.document)
+export function derive(editor) {
+    const definitions = []
+    editor.query('getCounterDefinitions', definitions)
+
+    const schema = Schema.derive(definitions)
+
+    if (editor.value === null) {
+        return new Counters({ schema })
+    } else {
+        const walker = new Walker(schema)
+        const document = deriveState(walker, editor.value.document)
+        const values = new Map(walker.values)
+
+        return new Counters({ schema, document, values })
+    }
+}
+
+/**
+ * Re-create state of counters for a new document, based on an existing counter
+ * schema.
+ *
+ * @param {Counters} counters
+ * @param {Slate~Document} newDocument
+ *
+ * @return {Counters}
+ */
+export function reset(counters, newDocument) {
+    const walker = new Walker(counters.schema)
+    const document = deriveState(walker, newDocument)
     const values = new Map(walker.values)
 
-    return new Counters({ schema, document, values })
+    return new Counters({ schema: counters.schema, document, values })
 }
 
 /**

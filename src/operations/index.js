@@ -1,5 +1,5 @@
 export { delete_ as delete } from './delete'
-export { derive } from './derive'
+export { derive, reset } from './derive'
 export { insert } from './insert'
 export { merge } from './merge'
 export { move } from './move'
