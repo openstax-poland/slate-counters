@@ -47,7 +47,7 @@ const APPLIERS = {
 }
 
 export function set_value(counters, op) {
-    return ops.reset(counters, op.value)
+    return ops.reset(counters, op.value.document)
 }
 
 export function insert_node(counters, op) {
