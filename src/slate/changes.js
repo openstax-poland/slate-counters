@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for
 // full license text.
 
-import { Change } from 'slate'
+import { Editor } from 'slate'
 
 import * as ops from '../operations'
 import * as util from '../util'
@@ -11,12 +11,12 @@ import * as util from '../util'
  * Apply operations to a counter state.
  *
  * @param {Counters} counters
- * @param {Slate~Operation|Slate~Change} op
+ * @param {Slate~Operation|Slate~Editor} op
  *
  * @return {Counters}
  */
 export function apply(counters, op) {
-    if (op instanceof Change) {
+    if (op instanceof Editor) {
         return op.operations.reduce(apply, counters)
     }
 
