@@ -22,7 +22,7 @@ export default function Plugin() {
             return next()
         },
 
-        renderEditor(props, next) {
+        renderEditor(props, editor, next) {
             return React.createElement(Context, { counters: counters.values }, next())
         },
     }

@@ -27,7 +27,8 @@
     "immutable": "^3.8.2",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
-    "slate": ">= 0.43.0 < 0.45.0"
+    "slate": ">= 0.43.0 < 0.45.0",
+    "slate-react": ">= 0.20.0 < 0.22.0"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0"
