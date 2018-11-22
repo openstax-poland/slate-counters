@@ -16,7 +16,7 @@ import * as util from '../util'
  * @return {Counters}
  */
 export function apply(counters, op) {
-    if (op instanceof Editor) {
+    if (op instanceof Editor || op.controller instanceof Editor) {
         return op.operations.reduce(apply, counters)
     }
 
