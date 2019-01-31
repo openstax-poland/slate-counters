@@ -19,9 +19,9 @@
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "immutable": "^3.8.2",
-    "rollup": "^0.58.1",
+    "rollup": "^1.0.0",
     "rollup-plugin-babel": "^4.0.1",
-    "rollup-plugin-node-resolve": "^3.3.0"
+    "rollup-plugin-node-resolve": "^4.0.0"
   },
   "peerDependencies": {
     "immutable": "^3.8.2",
