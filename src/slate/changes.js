@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for
 // full license text.
 
-import { Editor } from 'slate'
+import { Editor, KeyUtils } from 'slate'
 
 import * as ops from '../operations'
 import * as util from '../util'
@@ -92,6 +92,12 @@ export function set_node(counters, op) {
 export function split_node(counters, op) {
     if (!op.properties.type) {
         return counters
+    }
+
+    if (!op.properties.key) {
+        // XXX: this changes assumptions about how Slate operations (and node
+        // splitting in particular) work.
+        op.properties.key = KeyUtils.create()
     }
 
     return ops.split(counters, op.path, op.position, op.properties)
