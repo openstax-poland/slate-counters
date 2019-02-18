@@ -63,7 +63,7 @@ export function move(counters, from, to) {
  */
 function stripPrefix(a, b) {
     let inx = 0
-    const length = Math.min(a.size, b.size)
+    const length = Math.min(a.size, b.size) - 1
 
     for (; inx < length ; ++inx) {
         if (a.get(inx) !== b.get(inx)) {
