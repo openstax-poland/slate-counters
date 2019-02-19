@@ -10,15 +10,15 @@ import { apply } from './changes'
 import { derive } from '../operations'
 
 export default function Plugin() {
-    let value = null
     let counters = new Counters()
 
     return {
+        onSetValue(editor, next) {
+            counters = derive(editor)
+            return next()
+        },
+
         onChange(editor, next) {
-            if (value === null) {
-                counters = derive(editor)
-            }
-            value = editor.value
             counters = apply(counters, editor)
             return next()
         },
