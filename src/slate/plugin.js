@@ -9,15 +9,15 @@ import { apply } from './changes'
 import { derive } from '../operations'
 
 export default function Plugin() {
-    let value = null
     let counters = new Counters()
 
     return {
+        onSetValue(editor, next) {
+            counters = derive(editor)
+            return next()
+        },
+
         onChange(change, next) {
-            if (value === null) {
-                counters = derive(change)
-            }
-            value = change.value;
             counters = apply(counters, change)
             return next()
         },
