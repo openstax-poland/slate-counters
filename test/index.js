@@ -9,3 +9,4 @@ beforeEach(() => {
 })
 
 import './models'
+import './operations'
