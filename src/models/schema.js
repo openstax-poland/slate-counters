@@ -2,6 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for
 // full license text.
 
+import Immutable from 'immutable'
+
 const TYPES = [
     'enter', 'exit', 'enclose',
 ]
@@ -90,6 +92,27 @@ export default class Schema {
             yield* Object.entries(counters)
         }
     }
+
+    /**
+     * Compare with another schema
+     *
+     * @param {object|Schema} other
+     *
+     * @return {boolean}
+     */
+    equals(other) {
+        for (const [key, value] of Object.entries(this.schema)) {
+            if (!(key in other.schema)) return false
+
+            const oth = other.schema[key]
+
+            for (const [name, counter] of this.countersOf(key)) {
+                if (!(name in oth)) return false
+                if (!Immutable.is(counter, oth[name])) return false
+            }
+        }
+        return true
+    }
 }
 
 export class Counter {
@@ -130,5 +153,16 @@ export class Counter {
         this.initial = initial || 0
 
         Object.freeze(this)
+    }
+
+    /**
+     * Compare with another counter definition.
+     *
+     * @param {object|Counter} other
+     *
+     * @return {boolean}
+     */
+    equals(other) {
+        return this.type === other.type && this.initial === other.initial
     }
 }

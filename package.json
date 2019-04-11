@@ -10,7 +10,9 @@
   "files": ["dist"],
   "scripts": {
     "build": "rollup -c",
-    "prepare": "rollup -c"
+    "prepare": "rollup -c",
+    "test": "mocha --use_strict test/index.js",
+    "test:watch": "chokidar '{src,test}/**/*.js' --initial -c 'mocha -b --use_strict test/index.js'"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -18,10 +20,17 @@
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
+    "chai": "^4.1.2",
+    "chai-immutable": "^2.0.0",
+    "chokidar-cli": "^1.2.0",
     "immutable": "^3.8.2",
+    "mocha": "^5.1.1",
+    "reify": "^0.18.0",
     "rollup": "^1.0.0",
     "rollup-plugin-babel": "^4.0.1",
-    "rollup-plugin-node-resolve": "^4.0.0"
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "slate": ">= 0.43.0 < 0.45.0",
+    "slate-hyperscript": "^0.11.0"
   },
   "peerDependencies": {
     "immutable": "^3.8.2",
