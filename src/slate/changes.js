@@ -8,29 +8,29 @@ import * as ops from '../operations'
 import * as util from '../util'
 
 /**
- * Apply operations to a counter state.
+ * Apply pending operations to a counter state.
  *
  * @param {Counters} counters
- * @param {Slate~Operation|Slate~Editor} op
+ * @param {Slate~Editor} op
  *
  * @return {Counters}
  */
-export function apply(counters, op) {
-    if (op instanceof Editor || op.controller instanceof Editor) {
-        return op.operations.reduce(apply, counters)
-    }
+export function apply(counters, editor) {
+    return editor.operations.reduce((counters, op, inx, ops) => {
+        const applier = APPLIERS[op.type]
 
-    const applier = APPLIERS[op.type]
+        if (!applier) {
+            throw new Error("Unknown operation type: " + op.type)
+        }
 
-    if (!applier) {
-        throw new Error("Unknown operation type: " + op.type)
-    }
+        const next = ops.get(inx + 1, editor).value
 
-    return applier(counters, op)
+        return applier(counters, op, next)
+    }, counters)
 }
 
 /**
- * @type {(function(Counters, Slate~Operation): Counters)[]}
+ * @type {(function(Counters, Slate~Operation, Slate~Value): Counters)[]}
  */
 const APPLIERS = {
     insert_node,
@@ -89,15 +89,13 @@ export function set_node(counters, op) {
     })
 }
 
-export function split_node(counters, op) {
+export function split_node(counters, op, next_value) {
     if (!op.properties.type) {
         return counters
     }
 
     if (!op.properties.key) {
-        // XXX: this changes assumptions about how Slate operations (and node
-        // splitting in particular) work.
-        op.properties.key = KeyUtils.create()
+        op.properties.key = next_value.document.getNextNode(op.path).key
     }
 
     return ops.split(counters, op.path, op.position, op.properties)
