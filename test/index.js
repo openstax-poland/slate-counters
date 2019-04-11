@@ -7,3 +7,5 @@ chai.use(require('chai-immutable'))
 beforeEach(() => {
     KeyUtils.resetGenerator()
 })
+
+import './models'
