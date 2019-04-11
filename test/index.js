@@ -10,3 +10,4 @@ beforeEach(() => {
 
 import './models'
 import './operations'
+import './slate'
