@@ -23,6 +23,11 @@ export function split(counters, path, position, props) {
     return update(counters, path.slice(0, -1), (walker, state, counters) => {
         let nodes = null
 
+        if (!state.nodes || state.nodes.size === 0) {
+            // The splitted node was an inline, and we only track blocks.
+            return state
+        }
+
         // Remove split children from their parent, ...
         state = state.updateIn(['nodes', index], state => {
             nodes = state.nodes.slice(position)

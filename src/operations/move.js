@@ -27,6 +27,11 @@ export function move(counters, from, to) {
     return update(counters, common, (walker, state, counters) => {
         let moved = null
 
+        if (!state.nodes || state.nodes.size === 0) {
+            // The moved node was an inline, and we only track blocks.
+            return state
+        }
+
         state = doAt(state, fromPath, state => {
             moved = state.nodes.get(fromIndex)
             return state.deleteIn(['nodes', fromIndex])
