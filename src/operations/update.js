@@ -104,6 +104,7 @@ export function updateTree(walker, state, start=0) {
  * @return {State}
  */
 export function updateCounters(walker, state) {
+    if (!state) return state
     const counters = walker.enter(state)
 
     state = state.withMutations(state =>
