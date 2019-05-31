@@ -31,6 +31,7 @@ export default class Counters extends Record(DEFAULTS) {
             return object
         }
 
+        /* istanbul ignore next */
         let { values = {}, document = {}, schema = {} } = object
 
         document = State.fromJS(document)

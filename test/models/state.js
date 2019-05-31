@@ -10,6 +10,12 @@ describe("Counter state", () => {
             ;(() => State.fromJS({})).should.throw(/key must not be null/)
         })
 
+        it("is an identity when called with a State object", () => {
+            const a = new State()
+            const b = State.fromJS(a)
+            a.should.equal(b)
+        })
+
         test("just key",
             { key: 'test' },
             new State({

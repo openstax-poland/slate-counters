@@ -28,6 +28,14 @@ describe("Counter schema", () => {
             Counter.fromJS(counter).should.eq(counter)
         })
 
+        it("from invalid type", () => {
+            ;(() => Counter.fromJS(12)).should.throw(/can't load a Counter from/)
+        })
+
+        it("from object without `type`", () => {
+            ;(() => Counter.fromJS({})).should.throw(/counter must have a type/)
+        })
+
         test("only type set", { type: 'enter' }, new Counter('enter'))
         test("all properties set",
             { type: 'enter', initial: 12 }, new Counter('enter', 12))

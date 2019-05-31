@@ -26,6 +26,16 @@ function newChange(value, path, anchorOffset, focusOffset, fn) {
 }
 
 describe("Slate", () => {
+    describe("Operations on value", () => {
+        it("setting value data", () => {
+            const change = newChange(flat.value, null, null, null, change => change
+                .setData({ test: 'value' }))
+            const state = apply(flat.counters, change)
+
+            state.should.eq(flat.counters)
+        })
+    })
+
     describe("Inserting", () => {
         it("a node with counters", () => {
             const change = newChange(flat.value, [5, 0], 0, 0, change => change
@@ -169,6 +179,73 @@ describe("Slate", () => {
                         type: 'subfigure',
                         counters: { figure: 1, subfigure: 2 },
                     })))
+
+            state.should.equal(reference)
+        })
+    })
+
+    describe("Moving", () => {
+        it("a node without counters", () => {
+            const change = newChange(flat.value, [0, 0], 0, 0, change => change
+                .moveNodeByKey('p1', 'd', 1))
+            const state = apply(flat.counters, change)
+
+            const reference = flat.counters
+                .updateIn(['document', 'nodes'], nodes => nodes
+                    .insert(2, nodes.get(0).setIn(['counters', 'figure'], 1))
+                    .delete(0)
+                )
+                .setIn(['values', 'p1', 'figure'], 1)
+
+            state.should.equal(reference)
+        })
+
+        it("a node with counters", () => {
+            const change = newChange(flat.value, [1, 0], 0, 0, change => change
+                .moveNodeByKey('f1', 'd', 3))
+            const state = apply(flat.counters, change)
+
+            const reference = flat.counters
+                .updateIn(['document', 'nodes'], nodes => nodes
+                    .setIn([3, 'counters', 'figure'], 1)
+                    .deleteIn([2, 'counters', 'figure'])
+                    .insert(4, nodes.get(1).setIn(['counters', 'figure'], 2))
+                    .delete(1)
+                )
+                .setIn(['values', 'f1', 'figure'], 2)
+                .setIn(['values', 'f2', 'figure'], 1)
+                .deleteIn(['values', 'p2', 'figure'])
+
+            state.should.equal(reference)
+        })
+    })
+
+    describe("Setting", () => {
+        it("data of a node", () => {
+            const change = newChange(flat.value, [3, 0], 0, 0, change => change
+                .setNodeByKey('f2', { data: { test: 'value' } }))
+            const state = apply(flat.counters, change)
+
+            state.should.equal(flat.counters)
+        })
+
+        it("type of a node", () => {
+            const change = newChange(flat.value, [3, 0], 0, 0, change => change
+                .setNodeByKey('f2', 'paragraph'))
+            const state = apply(flat.counters, change)
+
+            const reference = flat.counters
+                .updateIn(['document', 'nodes'], nodes => nodes
+                    .setIn([3, 'type'], 'paragraph')
+                    .setIn([3, 'counters', 'figure'], 1)
+                    .setIn([4, 'counters', 'figure'], 1)
+                    .setIn([5, 'counters', 'figure'], 2)
+                )
+                .update('values', values => values
+                    .setIn(['f2', 'figure'], 1)
+                    .setIn(['p3', 'figure'], 1)
+                    .setIn(['f3', 'figure'], 2)
+                )
 
             state.should.equal(reference)
         })

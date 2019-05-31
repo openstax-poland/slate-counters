@@ -59,4 +59,10 @@ describe("Counters", () => {
             schema: Schema.fromJS(schemaTemplate),
         })
     })
+
+    it("#fromJS with a Counters object", () => {
+        const a = new Counters()
+        const b = Counters.fromJS(a)
+        a.should.equal(b)
+    })
 })
