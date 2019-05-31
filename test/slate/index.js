@@ -90,7 +90,6 @@ describe("Slate", () => {
         })
     })
 
-    // Tests disabled for now, because IDs are not operation-stable.
     describe("Splitting", () => {
         it("a node without counters", () => {
             const change = newChange(flat.value, [2, 0], 3, 3, change => change
