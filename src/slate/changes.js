@@ -50,8 +50,8 @@ const APPLIERS = {
     set_selection: util.identity,
 }
 
-export function set_value(counters, op) {
-    return ops.reset(counters, op.value.document)
+export function set_value(counters, op, next) {
+    return ops.reset(counters, next.document)
 }
 
 export function insert_node(counters, op) {
@@ -76,7 +76,7 @@ export function move_node(counters, op) {
 }
 
 export function set_node(counters, op) {
-    const { type } = op.properties
+    const { type } = op.newProperties
 
     // The only property we care about is type, as it controls which counter
     // rules apply to a given node.
