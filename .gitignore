@@ -1,3 +1,5 @@
+/.nyc_output/
 /.reify-cache/
+/coverage/
 /dist/
 /node_modules/
