@@ -23,7 +23,7 @@ export function apply(counters, editor) {
             throw new Error("Unknown operation type: " + op.type)
         }
 
-        const next = ops.get(inx + 1, editor).value
+        const next = editor.value
 
         return applier(counters, op, next)
     }, counters)
