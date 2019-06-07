@@ -27,7 +27,10 @@ export function apply(counters, editor) {
             return applier(counters, op)
         }, counters)
     } catch (ex) {
-        console.error('[slate-counters] error while applying operations:', ex)
+        if (!(ex instanceof ResetState)) {
+            console.error('[slate-counters] error while applying operations:', ex)
+        }
+
         return ops.reset(counters, editor.value.document)
     }
 }
@@ -53,8 +56,11 @@ const APPLIERS = {
     set_selection: util.identity,
 }
 
-export function set_value(counters, op, next) {
-    return ops.reset(counters, next.document)
+export class ResetState extends Error {
+}
+
+export function set_value(counters, op) {
+    throw new ResetState()
 }
 
 export function insert_node(counters, op) {
@@ -92,13 +98,13 @@ export function set_node(counters, op) {
     })
 }
 
-export function split_node(counters, op, next_value) {
+export function split_node(counters, op) {
     if (!op.properties.type) {
         return counters
     }
 
     if (!op.properties.key) {
-        op.properties.key = next_value.document.getNextNode(op.path).key
+        throw new ResetState()
     }
 
     return ops.split(counters, op.path, op.position, op.properties)
