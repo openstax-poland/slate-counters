@@ -13,12 +13,12 @@ export default function Plugin() {
     let counters = new Counters()
 
     return {
-        onChange(change, next) {
+        onChange(editor, next) {
             if (value === null) {
-                counters = derive(change)
+                counters = derive(editor)
             }
-            value = change.value;
-            counters = apply(counters, change)
+            value = editor.value;
+            counters = apply(counters, editor)
             return next()
         },
 
