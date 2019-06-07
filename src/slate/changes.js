@@ -16,17 +16,20 @@ import * as util from '../util'
  * @return {Counters}
  */
 export function apply(counters, editor) {
-    return editor.operations.reduce((counters, op, inx, ops) => {
-        const applier = APPLIERS[op.type]
+    try {
+        return editor.operations.reduce((counters, op, inx, ops) => {
+            const applier = APPLIERS[op.type]
 
-        if (!applier) {
-            throw new Error("Unknown operation type: " + op.type)
-        }
+            if (!applier) {
+                throw new Error("Unknown operation type: " + op.type)
+            }
 
-        const next = ops.get(inx + 1, editor).value
-
-        return applier(counters, op, next)
-    }, counters)
+            return applier(counters, op)
+        }, counters)
+    } catch (ex) {
+        console.error('[slate-counters] error while applying operations:', ex)
+        return ops.reset(counters, editor.value.document)
+    }
 }
 
 /**
