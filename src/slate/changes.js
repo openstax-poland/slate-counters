@@ -2,8 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for
 // full license text.
 
-import { Editor, KeyUtils } from 'slate'
-
 import * as ops from '../operations'
 import * as util from '../util'
 

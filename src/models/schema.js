@@ -8,10 +8,6 @@ const TYPES = [
     'enter', 'exit', 'enclose',
 ]
 
-const UNSUPPORTED_RULES = [
-    'data', 'marks', 'text', 'first', 'last', 'nodes',
-]
-
 /**
  * A „counter schema” describes how nodes in a document tree affect values
  * of counters at that point in the document.
