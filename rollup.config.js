@@ -29,6 +29,7 @@ export default {
         '@babel/runtime/helpers/getPrototypeOf',
         '@babel/runtime/helpers/inherits',
         '@babel/runtime/helpers/objectSpread',
+        '@babel/runtime/helpers/objectSpread2',
         '@babel/runtime/helpers/possibleConstructorReturn',
         '@babel/runtime/helpers/slicedToArray',
         '@babel/runtime/helpers/toConsumableArray',
