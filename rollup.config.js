@@ -26,6 +26,7 @@ export default {
     external: [
         '@babel/runtime/helpers/classCallCheck',
         '@babel/runtime/helpers/createClass',
+        '@babel/runtime/helpers/defineProperty',
         '@babel/runtime/helpers/getPrototypeOf',
         '@babel/runtime/helpers/inherits',
         '@babel/runtime/helpers/objectSpread',
