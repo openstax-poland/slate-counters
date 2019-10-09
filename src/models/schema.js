@@ -97,7 +97,7 @@ export default class Schema {
      * @return {boolean}
      */
     equals(other) {
-        for (const [key, value] of Object.entries(this.schema)) {
+        for (const key of Object.keys(this.schema)) {
             if (!(key in other.schema)) return false
 
             const oth = other.schema[key]

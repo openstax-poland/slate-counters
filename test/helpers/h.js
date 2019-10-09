@@ -41,7 +41,7 @@ function build(type, args) {
 
 
 const hproxy = new Proxy(buildDocument, {
-    get(target, name, receiver) {
+    get(target, name) {
         return (...args) => build(name, args)
     }
 })

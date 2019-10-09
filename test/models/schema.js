@@ -1,10 +1,9 @@
-import Slate from 'slate'
 import Schema, { Counter } from '../../src/models/schema'
 
 describe("Counter schema", () => {
     describe("new Counter", () => {
         it("accepts only correct counter types", () => {
-            ;(() => new Counter()).should.throw(/invalid counter type/)
+            (() => new Counter()).should.throw(/invalid counter type/)
             ;(() => new Counter('invalid')).should.throw(/invalid counter type/)
             ;(() => new Counter('enter')).should.not.throw()
             ;(() => new Counter('exit')).should.not.throw()
@@ -12,7 +11,7 @@ describe("Counter schema", () => {
         })
 
         it("accepts only numbers or undefined as initial values", () => {
-            ;(() => new Counter('enter', true)).should.throw(/initial must be a number/)
+            (() => new Counter('enter', true)).should.throw(/initial must be a number/)
             ;(() => new Counter('enter', 12)).should.not.throw()
             new Counter('enter', 12)
                 .should.deep.equal({ type: 'enter', initial: 12 })
@@ -29,11 +28,11 @@ describe("Counter schema", () => {
         })
 
         it("from invalid type", () => {
-            ;(() => Counter.fromJS(12)).should.throw(/can't load a Counter from/)
+            (() => Counter.fromJS(12)).should.throw(/can't load a Counter from/)
         })
 
         it("from object without `type`", () => {
-            ;(() => Counter.fromJS({})).should.throw(/counter must have a type/)
+            (() => Counter.fromJS({})).should.throw(/counter must have a type/)
         })
 
         test("only type set", { type: 'enter' }, new Counter('enter'))

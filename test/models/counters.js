@@ -58,6 +58,8 @@ describe("Counters", () => {
             }),
             schema: Schema.fromJS(schemaTemplate),
         })
+
+        counters.should.equal(reference)
     })
 
     it("#fromJS with a Counters object", () => {

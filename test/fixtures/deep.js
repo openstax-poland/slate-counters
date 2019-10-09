@@ -1,4 +1,4 @@
-import h, { empty } from '../helpers/h'
+import h from '../helpers/h'
 import Counters from '../../src/models/counters'
 import schema from './schema'
 

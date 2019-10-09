@@ -97,7 +97,7 @@ export default class Walker {
         this.counters = Seq.Keyed(this.schema.countersOf(type))
             .filter(counter => counter.type === 'exit')
             .reduce(
-                (counters, _, name) => counter.update(name, x => x + 1),
+                (counter, _, name) => counter.update(name, x => x + 1),
                 this.counters
             )
     }

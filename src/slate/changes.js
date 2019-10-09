@@ -15,7 +15,7 @@ import * as util from '../util'
  */
 export function apply(counters, editor) {
     try {
-        return editor.operations.reduce((counters, op, inx, ops) => {
+        return editor.operations.reduce((counters, op) => {
             const applier = APPLIERS[op.type]
 
             if (!applier) {
@@ -57,7 +57,7 @@ const APPLIERS = {
 export class ResetState extends Error {
 }
 
-export function set_value(counters, op) {
+export function set_value() {
     throw new ResetState()
 }
 

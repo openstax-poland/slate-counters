@@ -5,7 +5,6 @@ import { apply } from '../../src/slate/changes'
 
 import plugins from '../fixtures/plugins'
 import * as flat from '../fixtures/flat'
-import * as deep from '../fixtures/deep'
 import * as merge from '../fixtures/merge'
 
 function newChange(value, path, anchorOffset, focusOffset, fn) {

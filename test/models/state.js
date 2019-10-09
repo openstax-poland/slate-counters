@@ -7,7 +7,7 @@ describe("Counter state", () => {
             () => State.fromJS(src).should.equal(ref))
 
         it("requires a key", () => {
-            ;(() => State.fromJS({})).should.throw(/key must not be null/)
+            (() => State.fromJS({})).should.throw(/key must not be null/)
         })
 
         it("is an identity when called with a State object", () => {

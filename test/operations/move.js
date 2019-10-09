@@ -1,8 +1,7 @@
 import Counters from '../../src/models/counters'
 import State from '../../src/models/state'
 import ops from '../../src/operations'
-import { Map, List } from 'immutable'
-import { Block } from 'slate'
+import { List } from 'immutable'
 
 import { countersTemplate } from './remove'
 
