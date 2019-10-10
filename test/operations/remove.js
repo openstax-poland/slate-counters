@@ -1,11 +1,11 @@
-import Counters from '../../src/models/counters'
-import ops from '../../src/operations'
 import { List } from 'immutable'
 
+import Counters from '../../src/models/counters'
+import ops from '../../src/operations'
 import schema from '../fixtures/schema'
 
 export const countersTemplate = {
-    schema: schema,
+    schema,
     values: {
         f1: { figure: 1 },
         'f1-1': { figure: 1, subfigure: 1 },
@@ -26,7 +26,7 @@ export const countersTemplate = {
                         key: 'f1-1',
                         type: 'subfigure',
                         counters: { figure: 1, subfigure: 1 },
-                    }
+                    },
                 ],
             },
             {
@@ -52,11 +52,11 @@ export const countersTemplate = {
                 ],
             },
         ],
-    }
+    },
 }
 
 describe("Removing nodes from a document", () => {
-    let counters = Counters.fromJS(countersTemplate)
+    const counters = Counters.fromJS(countersTemplate)
 
     it("node without counter doesn't affect state", () => {
         const state = ops.delete(counters, new List([1]))
@@ -120,6 +120,7 @@ describe("Removing nodes from a document", () => {
             const reference = counters
                 .deleteIn(['document', 'nodes', 2, 'nodes', 0])
                 .deleteIn(['values', 'f2-1'])
+                /* eslint-disable-next-line max-len */
                 .setIn(['document', 'nodes', 2, 'nodes', 0, 'counters', 'subfigure'], 1)
                 .setIn(['values', 'f2-2', 'subfigure'], 1)
 

@@ -12,7 +12,7 @@ export const value = h(h => h.value(h.document({ key: 'd' },
 )))
 
 export const counters = Counters.fromJS({
-    schema: schema,
+    schema,
     values: {
         d: {},
         p1: {},

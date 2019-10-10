@@ -36,7 +36,7 @@ export default [
         queries: {
             getCounterDefinitions(editor, definitions) {
                 definitions.push(COUNTERS)
-            }
+            },
         },
-    }
+    },
 ]

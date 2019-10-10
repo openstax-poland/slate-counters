@@ -7,7 +7,6 @@ import { Map } from 'immutable'
 import Counters from '../models/counters'
 import Schema from '../models/schema'
 import State from '../models/state'
-
 import Walker from './walker'
 
 /**
@@ -25,13 +24,13 @@ export function derive(editor) {
 
     if (editor.value === null) {
         return new Counters({ schema })
-    } else {
-        const walker = new Walker(schema)
-        const document = deriveState(walker, editor.value.document)
-        const values = new Map(walker.values)
-
-        return new Counters({ schema, document, values })
     }
+
+    const walker = new Walker(schema)
+    const document = deriveState(walker, editor.value.document)
+    const values = new Map(walker.values)
+
+    return new Counters({ schema, document, values })
 }
 
 /**

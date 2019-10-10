@@ -15,9 +15,10 @@ import { update, updateTree } from './update'
  */
 export function merge(counters, path, position) {
     const index = path.last()
+    const first = path.slice(0, -1)
     let removed = null
 
-    counters = update(counters, path.slice(0, -1), (walker, state, counters) => {
+    counters = update(counters, first, (walker, state, counters) => {
         if (index >= state.nodes.size) {
             // Path doesn't exist.
             return state
@@ -29,8 +30,8 @@ export function merge(counters, path, position) {
 
         // ... then insert its children into previous node
         state = state.updateIn(['nodes', index - 1], state => {
-            state = state.update('nodes', nodes =>
-                nodes.splice(position, 0, ...removed.nodes))
+            state = state.update(
+                'nodes', nodes => nodes.splice(position, 0, ...removed.nodes))
 
             // performing recursive update of that node
             const prev = position === 0 ? state : state.nodes.get(position - 1)

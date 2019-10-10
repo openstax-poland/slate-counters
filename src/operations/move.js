@@ -4,7 +4,7 @@
 
 import { List } from 'immutable'
 
-import { update, recurse, updateTree } from './update'
+import { recurse, update, updateTree } from './update'
 
 /**
  * Move a node.
@@ -37,12 +37,15 @@ export function move(counters, from, to) {
             return state.deleteIn(['nodes', fromIndex])
         })
 
-        state = doAt(state, toPath, state =>
-            state.update('nodes', nodes => nodes.insert(toIndex, moved))
+        state = doAt(
+            state,
+            toPath,
+            state => state.update(
+                'nodes', nodes => nodes.insert(toIndex, moved)),
         )
 
-        const [updateAt, updateIndex] =
-            fromPath.first() === toPath.first()
+        const [updateAt, updateIndex]
+            = fromPath.first() === toPath.first()
                 // Can only happen when fromPath === toPath === undefined
                 ? [new List(), Math.min(fromIndex, toIndex)]
                 : fromPath.first() < toPath.first()
@@ -50,7 +53,9 @@ export function move(counters, from, to) {
                     : [toPath, toIndex]
 
         return recurse(counters, walker, state, updateAt, (walker, state) => {
-            const prev = updateIndex === 0 ? state : state.nodes.get(updateIndex - 1)
+            const prev = updateIndex === 0
+                ? state
+                : state.nodes.get(updateIndex - 1)
             walker.reset(counters.values.get(prev.key))
 
             return updateTree(walker, state, updateIndex)

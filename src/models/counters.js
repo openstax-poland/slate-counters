@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for
 // full license text.
 
-import { Record, Map, Seq } from 'immutable'
+import { Map, Record, Seq } from 'immutable'
 
 import State from './state'
 import Schema from './schema'

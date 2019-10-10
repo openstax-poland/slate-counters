@@ -1,11 +1,11 @@
-import Counters from '../../src/models/counters'
-import ops from '../../src/operations'
 import { List } from 'immutable'
 
+import Counters from '../../src/models/counters'
+import ops from '../../src/operations'
 import schema from '../fixtures/schema'
 
 const split = Counters.fromJS({
-    schema: schema,
+    schema,
     values: {
         f1: { figure: 1 },
         'f1-1': { figure: 1, subfigure: 1 },
@@ -56,7 +56,7 @@ const split = Counters.fromJS({
 })
 
 const merged = Counters.fromJS({
-    schema: schema,
+    schema,
     values: {
         f1: { figure: 1 },
         'f1-1': { figure: 1, subfigure: 1 },

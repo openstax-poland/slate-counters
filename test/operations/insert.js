@@ -1,13 +1,13 @@
+import { List, Map } from 'immutable'
+import { Block } from 'slate'
+
 import Counters from '../../src/models/counters'
 import State from '../../src/models/state'
 import ops from '../../src/operations'
-import { Map, List } from 'immutable'
-import { Block } from 'slate'
-
 import schema from '../fixtures/schema'
 
 const countersTemplate = {
-    schema: schema,
+    schema,
     values: {
         f1: { figure: 1 },
     },
@@ -24,11 +24,11 @@ const countersTemplate = {
                 counters: { figure: 1 },
             },
         ],
-    }
+    },
 }
 
 describe("Inserting nodes into a document", () => {
-    let counters = Counters.fromJS(countersTemplate)
+    const counters = Counters.fromJS(countersTemplate)
 
     const para = Block.create({ type: 'para', key: 'new:para' })
     const section = Block.create({ type: 'section', key: 'new:section' })
@@ -39,11 +39,12 @@ describe("Inserting nodes into a document", () => {
     it("node without counter doesn't affect state", () => {
         const state = ops.insert(counters, new List([1]), para)
 
-        const reference = counters.updateIn(['document', 'nodes'], nodes =>
-            nodes.insert(1, State.fromJS({
+        const reference = counters.updateIn(
+            ['document', 'nodes'],
+            nodes => nodes.insert(1, State.fromJS({
                 key: 'new:para',
                 type: 'para',
-            }))
+            })),
         ).setIn(['values', 'new:para'], new Map())
 
         state.should.equal(reference)
@@ -55,12 +56,13 @@ describe("Inserting nodes into a document", () => {
         // section is inserted after f1, thus the figure counter is defined
         // for it.
         const sectionCounters = new Map({ section: 1, figure: 1 })
-        const reference = counters.updateIn(['document', 'nodes'], nodes =>
-            nodes.insert(2, State.fromJS({
+        const reference = counters.updateIn(
+            ['document', 'nodes'],
+            nodes => nodes.insert(2, State.fromJS({
                 key: 'new:section',
                 type: 'section',
                 counters: sectionCounters,
-            }))
+            })),
         ).setIn(['values', 'new:section'], sectionCounters)
 
         state.should.equal(reference)
@@ -71,12 +73,13 @@ describe("Inserting nodes into a document", () => {
             const state = ops.insert(counters, new List([2]), figure)
 
             const figureCounters = new Map({ figure: 2 })
-            const reference = counters.updateIn(['document', 'nodes'], nodes =>
-                nodes.insert(2, State.fromJS({
+            const reference = counters.updateIn(
+                ['document', 'nodes'],
+                nodes => nodes.insert(2, State.fromJS({
                     key: 'new:figure',
                     type: 'figure',
                     counters: figureCounters,
-                }))
+                })),
             ).setIn(['values', 'new:figure'], figureCounters)
 
             state.should.equal(reference)
@@ -86,16 +89,19 @@ describe("Inserting nodes into a document", () => {
             const state = ops.insert(counters, new List([0]), figure)
 
             const figureCounters = new Map({ figure: 1 })
-            const reference = counters.updateIn(['document', 'nodes'], nodes =>
-                nodes.insert(0, State.fromJS({
+            const reference = counters.updateIn(
+                ['document', 'nodes'],
+                nodes => nodes.insert(0, State.fromJS({
                     key: 'new:figure',
                     type: 'figure',
                     counters: figureCounters,
-                })).setIn([1, 'counters', 'figure'], 1)
-                   .setIn([2, 'counters', 'figure'], 2)
-            ).setIn(['values', 'new:figure'], figureCounters)
-             .setIn(['values', 'p1', 'figure'], 1)
-             .setIn(['values', 'f1', 'figure'], 2)
+                }))
+                    .setIn([1, 'counters', 'figure'], 1)
+                    .setIn([2, 'counters', 'figure'], 2)
+            )
+                .setIn(['values', 'new:figure'], figureCounters)
+                .setIn(['values', 'p1', 'figure'], 1)
+                .setIn(['values', 'f1', 'figure'], 2)
 
             state.should.equal(reference)
         })
@@ -124,12 +130,13 @@ describe("Inserting nodes into a document", () => {
 
         it("within a different enclosure", () => {
             const initialCounters = new Map({ figure: 2 })
-            const initial = cns.updateIn(['document', 'nodes'], nodes =>
-                nodes.insert(2, State.fromJS({
+            const initial = cns.updateIn(
+                ['document', 'nodes'],
+                nodes => nodes.insert(2, State.fromJS({
                     key: 'new:figure',
                     type: 'figure',
                     counters: initialCounters,
-                }))
+                })),
             ).setIn(['values', 'new:figure'], initialCounters)
 
             const state = ops.insert(initial, new List([2, 0]), sub2)

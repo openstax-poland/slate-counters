@@ -28,11 +28,9 @@ export function update(counters, path, change) {
     const walker = new Walker(counters.schema)
     const document = recurse(counters, walker, counters.document, path, change)
 
-    return counters.withMutations(counters => {
-        return counters
-            .set('document', document)
-            .mergeIn(['values'], walker.values)
-    })
+    return counters.withMutations(counters => counters
+        .set('document', document)
+        .mergeIn(['values'], walker.values))
 }
 
 /**
@@ -106,10 +104,8 @@ export function updateTree(walker, state, start=0) {
 export function updateCounters(walker, state) {
     const counters = walker.enter(state)
 
-    state = state.withMutations(state =>
-        updateTree(walker, state)
-            .set('counters', counters)
-    )
+    state = state.withMutations(
+        state => updateTree(walker, state).set('counters', counters))
 
     walker.exit()
 

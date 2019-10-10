@@ -1,8 +1,8 @@
-import State from '../../src/models/state'
 import { Editor } from 'slate'
 import { Map } from 'immutable'
-import { apply } from '../../src/slate/changes'
 
+import State from '../../src/models/state'
+import { apply } from '../../src/slate/changes'
 import plugins from '../fixtures/plugins'
 import * as flat from '../fixtures/flat'
 import * as merge from '../fixtures/merge'
@@ -27,8 +27,13 @@ function newChange(value, path, anchorOffset, focusOffset, fn) {
 describe("Slate", () => {
     describe("Operations on value", () => {
         it("setting value data", () => {
-            const change = newChange(flat.value, null, null, null, change => change
-                .setData({ test: 'value' }))
+            const change = newChange(
+                flat.value,
+                null,
+                null,
+                null,
+                change => change.setData({ test: 'value' }),
+            )
             const state = apply(flat.counters, change)
 
             state.should.eq(flat.counters)
@@ -48,7 +53,7 @@ describe("Slate", () => {
                         key: 'new',
                         type: 'figure',
                         counters: { figure: 4 },
-                        nodes: []
+                        nodes: [],
                     }))
                 )
                 .setIn(['values', 'new'], new Map({ figure: 4 }))
@@ -114,8 +119,8 @@ describe("Slate", () => {
                         type: 'para',
                         counters: { figure: 1 },
                     })))
-                .update('values', values => values
-                    .set('1', new Map({ figure: 1})))
+                .update(
+                    'values', values => values.set('1', new Map({ figure: 1 })))
 
             state.should.equal(reference)
         })

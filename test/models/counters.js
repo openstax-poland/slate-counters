@@ -1,4 +1,5 @@
-import { Map, List } from 'immutable'
+import { List, Map } from 'immutable'
+
 import Counters from '../../src/models/counters'
 import Schema from '../../src/models/schema'
 

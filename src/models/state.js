@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for
 // full license text.
 
-import { Record, Map, List, Seq } from 'immutable'
+import { List, Map, Record, Seq } from 'immutable'
 
 const DEFAULTS = {
     key: null,

@@ -11,7 +11,7 @@ export const value = h(h => h.value(h.document({ key: 'd' },
             h.subfigure({ key: 'f2-1', isVoid: true }),
             h.subfigure({ key: 'f2-2', isVoid: true }),
         ),
-        h.p({ key: 'p3' }, 'para', h.xref({ key: 'x2', target: 'f2-1'})),
+        h.p({ key: 'p3' }, 'para', h.xref({ key: 'x2', target: 'f2-1' })),
         h.figure({ key: 'f3' },
             h.subfigure({ key: 'f3-1', isVoid: true }),
             h.subfigure({ key: 'f3-2', isVoid: true }),
@@ -20,7 +20,7 @@ export const value = h(h => h.value(h.document({ key: 'd' },
 )))
 
 export const counters = Counters.fromJS({
-    schema: schema,
+    schema,
     values: {
         d: {},
         p1: {},
@@ -70,15 +70,23 @@ export const counters = Counters.fromJS({
                             {
                                 key: 'f2-1',
                                 type: 'subfigure',
-                                counters: { figure: 2, subfigure: 1, section: 1 },
+                                counters: {
+                                    figure: 2,
+                                    subfigure: 1,
+                                    section: 1,
+                                },
                                 nodes: [],
                             },
                             {
                                 key: 'f2-2',
                                 type: 'subfigure',
-                                counters: { figure: 2, subfigure: 2, section: 1 },
+                                counters: {
+                                    figure: 2,
+                                    subfigure: 2,
+                                    section: 1,
+                                },
                                 nodes: [],
-                            }
+                            },
                         ],
                     },
                     {
@@ -95,15 +103,23 @@ export const counters = Counters.fromJS({
                             {
                                 key: 'f3-1',
                                 type: 'subfigure',
-                                counters: { figure: 3, subfigure: 1, section: 1 },
+                                counters: {
+                                    figure: 3,
+                                    subfigure: 1,
+                                    section: 1,
+                                },
                                 nodes: [],
                             },
                             {
                                 key: 'f3-2',
                                 type: 'subfigure',
-                                counters: { figure: 3, subfigure: 2, section: 1 },
+                                counters: {
+                                    figure: 3,
+                                    subfigure: 2,
+                                    section: 1,
+                                },
                                 nodes: [],
-                            }
+                            },
                         ],
                     },
                 ],

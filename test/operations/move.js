@@ -1,24 +1,25 @@
+import { List } from 'immutable'
+
 import Counters from '../../src/models/counters'
 import State from '../../src/models/state'
 import ops from '../../src/operations'
-import { List } from 'immutable'
-
 import { countersTemplate } from './remove'
 
 describe("Moving nodes", () => {
-    let counters = Counters.fromJS(countersTemplate)
+    const counters = Counters.fromJS(countersTemplate)
 
     it("with no counters", () => {
         const state = ops.move(counters, new List([1]), new List([2]))
 
         const reference = counters
             .deleteIn(['document', 'nodes', 1])
-            .updateIn(['document', 'nodes'], nodes =>
-                nodes.insert(2, State.fromJS({
+            .updateIn(
+                ['document', 'nodes'],
+                nodes => nodes.insert(2, State.fromJS({
                     key: 'p1',
                     type: 'para',
                     counters: { figure: 2 },
-                }))
+                })),
             )
             .setIn(['values', 'p1', 'figure'], 2)
 
@@ -55,13 +56,14 @@ describe("Moving nodes", () => {
     it("within a nested container", () => {
         const state = ops.move(counters, new List([2, 0]), new List([2, 1]))
 
-        const reference = counters.updateIn(['document', 'nodes', 2, 'nodes'],
+        const reference = counters.updateIn(
+            ['document', 'nodes', 2, 'nodes'],
             nodes => nodes
                 .delete(0)
                 .insert(1, nodes.get(0))
                 .setIn([0, 'counters', 'subfigure'], 1)
-                .setIn([1, 'counters', 'subfigure'], 2)
-            )
+                .setIn([1, 'counters', 'subfigure'], 2),
+        )
             .mergeIn(['values'], {
                 'f2-1': { figure: 2, subfigure: 2 },
                 'f2-2': { figure: 2, subfigure: 1 },

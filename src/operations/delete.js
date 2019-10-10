@@ -16,9 +16,10 @@ import { update, updateTree } from './update'
  */
 export function delete_(counters, path) {
     const position = path.last()
+    const first = path.slice(0, -1)
     let removed = null
 
-    counters = update(counters, path.slice(0, -1), (walker, state, counters) => {
+    counters = update(counters, first, (walker, state, counters) => {
         if (state.nodes.size === 0) {
             // The deleted node was an inline, and we only track blocks.
             return state

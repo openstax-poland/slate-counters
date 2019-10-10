@@ -11,7 +11,8 @@ describe("Counter schema", () => {
         })
 
         it("accepts only numbers or undefined as initial values", () => {
-            (() => new Counter('enter', true)).should.throw(/initial must be a number/)
+            (() => new Counter('enter', true))
+                .should.throw(/initial must be a number/)
             ;(() => new Counter('enter', 12)).should.not.throw()
             new Counter('enter', 12)
                 .should.deep.equal({ type: 'enter', initial: 12 })
@@ -36,8 +37,11 @@ describe("Counter schema", () => {
         })
 
         test("only type set", { type: 'enter' }, new Counter('enter'))
-        test("all properties set",
-            { type: 'enter', initial: 12 }, new Counter('enter', 12))
+        test(
+            "all properties set",
+            { type: 'enter', initial: 12 },
+            new Counter('enter', 12),
+        )
     })
 
     describe("Schema#fromJS", () => {
@@ -52,7 +56,10 @@ describe("Counter schema", () => {
 
         test("multiple node types with multiple counters",
             {
-                n1: { c1: { type: 'enter' }, c2: { type: 'exit', initial: 12 } },
+                n1: {
+                    c1: { type: 'enter' },
+                    c2: { type: 'exit', initial: 12 },
+                },
                 n2: { c1: { type: 'enclose' }, c3: { type: 'enter' } },
             },
             {
@@ -74,7 +81,7 @@ describe("Counter schema", () => {
             {})
 
         test("single node type with a counter",
-            [ { n1: { c1: 'enter' } } ],
+            [{ n1: { c1: 'enter' } }],
             { n1: { c1: new Counter('enter') } })
 
         test("multiple node types with multiple counters",

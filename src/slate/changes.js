@@ -26,7 +26,8 @@ export function apply(counters, editor) {
         }, counters)
     } catch (ex) {
         if (!(ex instanceof ResetState)) {
-            console.error('[slate-counters] error while applying operations:', ex)
+            console.error(
+                '[slate-counters] error while applying operations:', ex)
         }
 
         return ops.reset(counters, editor.value.document)
@@ -91,9 +92,11 @@ export function set_node(counters, op) {
         return counters
     }
 
-    return ops.update(counters, op.path, (walker, state) => {
-        return ops.updateCounters(walker, state.set('type', type))
-    })
+    return ops.update(
+        counters,
+        op.path,
+        (walker, state) => ops.updateCounters(walker, state.set('type', type)),
+    )
 }
 
 export function split_node(counters, op) {

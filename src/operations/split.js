@@ -41,7 +41,8 @@ export function split(counters, path, position, props) {
 
         // ... insert split nodes into the newly created node, ...
         const newState = createNew(walker, props, nodes)
-        state = state.update('nodes', nodes => nodes.insert(index + 1, newState))
+        state = state.update(
+            'nodes', nodes => nodes.insert(index + 1, newState))
 
         // ... and finally update tree after new node
         return updateTree(walker, state, index + 2)

@@ -1,7 +1,6 @@
 import { Editor } from 'slate'
 
 import ops from '../../src/operations'
-
 import plugins from '../fixtures/plugins'
 import * as deep from '../fixtures/deep'
 import * as flat from '../fixtures/flat'

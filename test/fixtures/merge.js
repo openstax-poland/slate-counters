@@ -2,7 +2,7 @@ import h from '../helpers/h'
 import Counters from '../../src/models/counters'
 import schema from './schema'
 
-export const value = h(h => h.value(h.document({ key: 'd'},
+export const value = h(h => h.value(h.document({ key: 'd' },
     h.p({ key: 'p1' }, 'para'),
     h.p({ key: 'p2' }, 'para'),
     h.figure({ key: 'f1' },
@@ -14,7 +14,7 @@ export const value = h(h => h.value(h.document({ key: 'd'},
 )))
 
 export const counters = Counters.fromJS({
-    schema: schema,
+    schema,
     values: {
         d: {},
         p1: {},
@@ -59,6 +59,6 @@ export const counters = Counters.fromJS({
                     },
                 ],
             },
-        ]
-    }
+        ],
+    },
 })

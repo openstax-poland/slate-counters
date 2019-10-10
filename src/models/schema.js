@@ -54,7 +54,7 @@ export default class Schema {
 
         function readDefinition(definition) {
             for (const [type, counters] of Object.entries(definition)) {
-                const c = (sch[type] = sch[type] || {})
+                const c = sch[type] = sch[type] || {}
 
                 for (const [name, schema] of Object.entries(counters)) {
                     c[name] = Counter.fromJS(schema)

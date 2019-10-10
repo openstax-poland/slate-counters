@@ -1,4 +1,4 @@
-import { Editor, Node, KeyUtils } from 'slate'
+import { Editor, KeyUtils, Node } from 'slate'
 import { createHyperscript } from 'slate-hyperscript'
 
 import plugins from '../fixtures/plugins'
@@ -12,7 +12,7 @@ const h = createHyperscript({
         subfigure: {
             type: 'subfigure',
             isVoid: true,
-        }
+        },
     },
     inlines: {
         xref: {
@@ -30,7 +30,7 @@ function build(type, args) {
 
     attrs.key = KeyUtils.create(attrs.key)
 
-    let r = h(type, attrs, ...args)
+    const r = h(type, attrs, ...args)
 
     if (type === 'value') {
         // KeyUtils.resetGenerator()
@@ -43,7 +43,7 @@ function build(type, args) {
 const hproxy = new Proxy(buildDocument, {
     get(target, name) {
         return (...args) => build(name, args)
-    }
+    },
 })
 
 
@@ -55,7 +55,7 @@ export default function buildDocument(cb) {
 
 
 export const empty = key => ({
-    key: key,
+    key,
     counters: {},
     nodes: [],
 })

@@ -1,4 +1,5 @@
-import { Map, List } from 'immutable'
+import { List, Map } from 'immutable'
+
 import State from '../../src/models/state'
 
 describe("Counter state", () => {
@@ -21,7 +22,7 @@ describe("Counter state", () => {
             new State({
                 key: 'test',
                 type: null,
-                counters: new Map,
+                counters: new Map(),
                 nodes: new List(),
             }))
 
@@ -42,7 +43,7 @@ describe("Counter state", () => {
                         key: 't3',
                         counters: { c3: 3 },
                     },
-                ]
+                ],
             },
             new State({
                 key: 't1',
@@ -50,7 +51,7 @@ describe("Counter state", () => {
                 nodes: new List([
                     new State({
                         key: 't2',
-                        counters: new Map({ c2: 2}),
+                        counters: new Map({ c2: 2 }),
                     }),
                     new State({
                         key: 't3',

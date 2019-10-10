@@ -49,8 +49,8 @@ export default class Walker {
         this.counters = Seq.Keyed(this.schema.countersOf(node.type))
             .filter(counter => counter.type === 'enter')
             .reduce(
-                (counters, counter, name) =>
-                    counters.update(name, counter.initial, x => x + 1),
+                (counters, counter, name) => counters.update(
+                    name, counter.initial, x => x + 1),
                 this.counters
             )
 
