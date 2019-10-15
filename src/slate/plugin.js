@@ -4,7 +4,7 @@
 
 import React from 'react'
 
-import Context from './context'
+import CounterContext from './context'
 import Counters from '../models/counters'
 import { apply } from './changes'
 import { derive } from '../operations'
@@ -25,7 +25,10 @@ export default function Plugin() {
 
         renderEditor(props, editor, next) {
             return React.createElement(
-                Context, { counters: counters.values }, next())
+                CounterContext.Provider,
+                { value: counters.values },
+                next()
+            )
         },
     }
 }

@@ -3,4 +3,4 @@
 // full license text.
 
 export { default } from './slate/plugin'
-export { WithCounters } from './slate/context'
+export { default as CounterContext, WithCounters } from './slate/context'
